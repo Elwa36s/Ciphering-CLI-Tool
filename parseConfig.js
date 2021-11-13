@@ -6,6 +6,13 @@ module.exports.currentConfig = (function (){
     const fullConfig = findParameterByKey(fullParameters);
     const shortConfig = findParameterByKey(shortParameters);
 
+    try{
+        if ((shortConfig['-c'] && fullConfig['--config']) || (shortConfig['-i'] && fullConfig['--input']) || (shortConfig['-o'] && fullConfig['--output'])) throw 'Incorrect config. Avoid duplicate parameters.'
+        } catch(error) {
+            process.stderr._write(error)
+            process.exit(1)
+    }
+
     return {
         c: shortConfig['-c'] || fullConfig['--config'],
         i: shortConfig['-i'] || fullConfig['--input'],
