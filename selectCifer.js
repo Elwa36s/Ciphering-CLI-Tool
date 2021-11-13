@@ -6,5 +6,7 @@ module.exports.selectCifer = (key) => {
             return 'cesar'
         case 'R':
             return 'Rot'
+        default: 
+            return 'Error: Config wasn`t found'
     }
 }
