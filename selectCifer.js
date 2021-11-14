@@ -5,7 +5,7 @@ module.exports.selectCifer = (key) => {
         case 'A':
             return new MyTransform({}, ciferAtbash);
         case 'C':
-            return new MyTransform({}, ciferShift(1, key[1]));
+            return new MyTransform({}, ciferShift(1, key[1] === '0' ? '1' : '0'));
         case 'R':
             return new MyTransform({}, ciferShift(8, key[1]));
         default: 
@@ -43,7 +43,6 @@ function ciferAtbash(string){
         }
     }
     const arrFromString = string.split('');
-    console.log('---------------ATBASH----------')
 
     const ciferedArr = arrFromString.map((letter) => {
         const letterNum = letter.charCodeAt();
@@ -59,10 +58,8 @@ function ciferAtbash(string){
         if (letterNum <= 122 && letterNum >= 97){
             currentLimits = limits.lowercase
         }
-        console.log(`letterNum = ${letterNum}`)
 
         const newLetterNumb = currentLimits.min + (currentLimits.max - letterNum);
-        console.log(`newLetterNumb = ${newLetterNumb}`)
         if (newLetterNumb >= currentLimits.min && newLetterNumb <= currentLimits.max) return String.fromCharCode(newLetterNumb);
         if (newLetterNumb > currentLimits.max) return String.fromCharCode(currentLimits.min + (newLetterNumb - currentLimits.max - 1));
         if (newLetterNumb < currentLimits.min) return String.fromCharCode(currentLimits.max - (currentLimits.min - newLetterNumb - 1));
@@ -88,7 +85,6 @@ function ciferShift(step, direction){
             }
         }
         const step = currentStep;
-        console.log('----------'+step+'-------------');
         const arrFromString = string.split('');
         const ciferedArr = arrFromString.map((letter) => {
             const letterNum = letter.charCodeAt();
@@ -105,12 +101,10 @@ function ciferShift(step, direction){
             if (letterNum <= 122 && letterNum >= 97){
                 currentLimits = limits.lowercase
             }
-            console.log(`letterNum = ${letterNum}`)
 
             const newLetterNumb = direction === 0 ? letterNum + step : letterNum - step;
-            console.log(`newLetterNumb = ${newLetterNumb}`)
             if (newLetterNumb >= currentLimits.min && newLetterNumb <= currentLimits.max) return String.fromCharCode(newLetterNumb);
-            if (newLetterNumb > currentLimits.max) return String.fromCharCode(currentLimits.min + (newLetterNumb - currentLimits.max - 1));
+            if (newLetterNumb > currentLimits.max) return String.fromCharCode(currentLimits.min - 1 + (newLetterNumb - currentLimits.max));
             if (newLetterNumb < currentLimits.min) return String.fromCharCode(currentLimits.max - (currentLimits.min - newLetterNumb - 1));
         })
         return ciferedArr.join('');
