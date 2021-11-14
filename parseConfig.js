@@ -1,3 +1,4 @@
+const {validateConfig} = require('./validateConfig');
 module.exports.currentConfig = (function (){
     const config = process.argv.slice(2);
     const shortParameters = ['-c', '-i', '-o'];
@@ -13,11 +14,15 @@ module.exports.currentConfig = (function (){
             process.exit(1)
     }
 
-    return {
+    const result = {
         c: shortConfig['-c'] || fullConfig['--config'],
         i: shortConfig['-i'] || fullConfig['--input'],
         o: shortConfig['-o'] || fullConfig['--output'],
     };
+
+    validateConfig(result.c);
+
+    return result;
 
     function findParameterByKey(parameterArray){
         return parameterArray.reduce((acc, parameter) => {

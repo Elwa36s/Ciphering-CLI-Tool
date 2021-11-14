@@ -1,16 +1,36 @@
+const { Transform } = require('stream');
+
 module.exports.selectCifer = (key) => {
     switch(key[0]){
         case 'A':
-            return ciferAtbash;
+            return new MyTransform({}, ciferAtbash);
         case 'C':
-            return ciferShift(1, key[1]);
+            return new MyTransform({}, ciferShift(1, key[1]));
         case 'R':
-            return ciferShift(8, key[1]);
+            return new MyTransform({}, ciferShift(8, key[1]));
         default: 
-            return 'Something goes wrong...'
+            process.stderr._write('Something goes wrong..');
+            process.exit(9);
     }
 }
 
+class MyTransform extends Transform {
+    constructor(opt = {}, transformFunc){
+        super();
+        this.transformFunc = transformFunc;
+    }
+
+    _transform(chunk, encoding = 'utf8', callback) {
+        try {
+            const resultString = this.transformFunc(chunk.toString('utf8'));
+    
+          callback(null, resultString);
+        } catch (err) {
+          process.stderr._write('Something with cifering goes wrong...');
+          process.exit(7);
+        }
+      }
+}
 function ciferAtbash(string){
     const limits = {
         uppercase: {
@@ -23,10 +43,11 @@ function ciferAtbash(string){
         }
     }
     const arrFromString = string.split('');
+    console.log('---------------ATBASH----------')
+
     const ciferedArr = arrFromString.map((letter) => {
         const letterNum = letter.charCodeAt();
         let currentLimits = {};
-
         if (letterNum < 65 || (letterNum > 90 && letterNum < 97) || letterNum > 122){
             return letter;
         }
@@ -67,6 +88,7 @@ function ciferShift(step, direction){
             }
         }
         const step = currentStep;
+        console.log('----------'+step+'-------------');
         const arrFromString = string.split('');
         const ciferedArr = arrFromString.map((letter) => {
             const letterNum = letter.charCodeAt();

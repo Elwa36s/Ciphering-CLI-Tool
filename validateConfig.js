@@ -1,5 +1,8 @@
 module.exports.validateConfig = (config) => {
-    // const availableCodes = [67,82];
+    if (!config) {
+        process.stderr._write('Config is mandatory.');
+        process.exit(1);
+    }
     try {
         config.split('-').forEach(element => {
             if (element.length < 2 && element !== 'A') throw 'Incorrect config. Only "A" could be without number key.'
