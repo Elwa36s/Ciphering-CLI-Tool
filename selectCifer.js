@@ -5,7 +5,7 @@ module.exports.selectCifer = (key) => {
         case 'A':
             return new MyTransform({}, ciferAtbash);
         case 'C':
-            return new MyTransform({}, ciferShift(1, key[1] === '0' ? '1' : '0'));
+            return new MyTransform({}, ciferShift(1, key[1]));
         case 'R':
             return new MyTransform({}, ciferShift(8, key[1]));
         default: 
@@ -102,7 +102,7 @@ function ciferShift(step, direction){
                 currentLimits = limits.lowercase
             }
 
-            const newLetterNumb = direction === 0 ? letterNum + step : letterNum - step;
+            const newLetterNumb = direction === 0 ? letterNum - step : letterNum + step;
             if (newLetterNumb >= currentLimits.min && newLetterNumb <= currentLimits.max) return String.fromCharCode(newLetterNumb);
             if (newLetterNumb > currentLimits.max) return String.fromCharCode(currentLimits.min - 1 + (newLetterNumb - currentLimits.max));
             if (newLetterNumb < currentLimits.min) return String.fromCharCode(currentLimits.max - (currentLimits.min - newLetterNumb - 1));
