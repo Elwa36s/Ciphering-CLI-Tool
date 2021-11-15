@@ -1,0 +1,19 @@
+{
+  "name": "ciphering-cli-tool",
+  "version": "1.0.0",
+  "description": "Ciphering CLI",
+  "main": "cipher_cli.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Elwa36s/Ciphering-CLI-Tool.git"
+  },
+  "author": "Elwa36s",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Elwa36s/Ciphering-CLI-Tool/issues"
+  },
+  "homepage": "https://github.com/Elwa36s/Ciphering-CLI-Tool#readme"
+}
