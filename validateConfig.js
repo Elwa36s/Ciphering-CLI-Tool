@@ -1,7 +1,7 @@
 module.exports.validateConfig = (config) => {
     if (!config) {
         process.stderr._write('Config is mandatory.');
-        process.exit(1);
+        process.exit(2);
     }
     try {
         config.split('-').forEach(element => {
@@ -11,8 +11,7 @@ module.exports.validateConfig = (config) => {
         });
     } catch(error) {
         process.stderr._write(error)
-        process.exit(1)
+        process.exit(3)
     }
     return config.split('-')
 }
-// availableCodes.indexOf(element[0].charCodeAt()) === -1)

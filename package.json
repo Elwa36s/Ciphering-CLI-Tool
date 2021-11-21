@@ -4,7 +4,8 @@
   "description": "Ciphering CLI",
   "main": "cipher_cli.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/Elwa36s/Ciphering-CLI-Tool/issues"
   },
-  "homepage": "https://github.com/Elwa36s/Ciphering-CLI-Tool#readme"
+  "homepage": "https://github.com/Elwa36s/Ciphering-CLI-Tool#readme",
+  "devDependencies": {
+    "jest": "^27.3.1"
+  }
 }
