@@ -1,6 +1,5 @@
 const {validateConfig} = require('./validateConfig');
-module.exports.currentConfig = (function (){
-    const config = process.argv.slice(2);
+module.exports.currentConfig = (config) => {
     const shortParameters = ['-c', '-i', '-o'];
     const fullParameters = ['--config', '--input', '--output'];
 
@@ -9,6 +8,7 @@ module.exports.currentConfig = (function (){
 
     try{
         if ((shortConfig['-c'] && fullConfig['--config']) || (shortConfig['-i'] && fullConfig['--input']) || (shortConfig['-o'] && fullConfig['--output'])) throw 'Incorrect config. Avoid duplicate parameters.'
+        if (config.indexOf('-c') !== config.lastIndexOf('-c') || config.lastIndexOf('--config') !== config.indexOf('--config')) throw 'You provided -c argument more than once.'
         } catch(error) {
             process.stderr._write(error)
             process.exit(1)
@@ -30,5 +30,4 @@ module.exports.currentConfig = (function (){
         return acc;
         }, {});
     }
-
-})()
+}
