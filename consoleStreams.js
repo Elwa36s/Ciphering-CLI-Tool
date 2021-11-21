@@ -7,7 +7,14 @@ module.exports.doConfig = (config) => {
   if (o){
     fs.createReadStream(o).on('error', (error) => {
       process.stderr._write("File doesn't exist or wrong path");
-      process.exit(3);
+      process.exit(6);
+    })
+  }
+
+  if (i){
+    fs.createReadStream(i).on('error', (error) => {
+      process.stderr._write("File doesn't exist or wrong path");
+      process.exit(6);
     })
   }
 
